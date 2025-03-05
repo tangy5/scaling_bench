@@ -4,8 +4,39 @@ The repo adds the monai benchmark code bases for abdomenAtlas dataset.
 
 Data scales: 
 
-- data_1000
+SegResNet:
 
-- data_5000
+- [ ] data_1000
+    - [ ] model_S
+    - [ ] model_B
+    - [ ] model_L
+    - [ ] model_H
+- [ ] data_5000
+    - [ ] model_S
+    - [ ] model_B
+    - [ ] model_L
+    - [ ] model_H
+- [ ] data_9000
+    - [ ] model_S
+    - [ ] model_B
+    - [ ] model_L
+    - [ ] model_H
 
-- data_9000
+
+SwinUNETR
+
+- [ ] data_1000
+    - [ ] model_S
+    - [ ] model_B
+    - [ ] model_L
+    - [ ] model_H
+- [ ] data_5000
+    - [ ] model_S
+    - [ ] model_B
+    - [ ] model_L
+    - [ ] model_H
+- [ ] data_9000
+    - [ ] model_S
+    - [ ] model_B
+    - [ ] model_L
+    - [ ] model_H
