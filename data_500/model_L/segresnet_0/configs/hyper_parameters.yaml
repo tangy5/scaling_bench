@@ -1,0 +1,76 @@
+_meta_: {}
+bundle_root: /lustre/fsw/portfolios/healthcareeng/projects/healthcareeng_monai/Path/JHU/JHU/auto3dseg/data_500/model_L/segresnet_0
+ckpt_path: $@bundle_root + '/model'
+mlflow_tracking_uri: $@ckpt_path + '/mlruns/'
+mlflow_experiment_name: Auto3DSeg
+data_file_base_dir: /lustre/fsw/portfolios/healthcareeng/projects/healthcareeng_monai/Path/JHU/round4
+data_list_file_path: /home/yuchengt/yuchengt/feb/auto3dseg/AbdomenAtlas_train_500.json
+validation_key: validation
+pretrained_ckpt_name: $@bundle_root + '/model' + '/model_final.pt'
+continue: true
+modality: ct
+fold: 0
+input_channels: 1
+output_classes: 26
+class_names: null
+class_index: null
+debug: false
+ckpt_save: true
+cache_rate: null
+roi_size: [224, 224, 144]
+auto_scale_allowed: false
+auto_scale_batch: false
+auto_scale_roi: false
+auto_scale_filters: false
+quick: false
+channels_last: true
+validate_final_original_res: true
+calc_val_loss: false
+amp: true
+log_output_file: null
+cache_class_indices: null
+early_stopping_fraction: 0.001
+determ: false
+orientation_ras: true
+crop_foreground: true
+learning_rate: 0.0002
+batch_size: 1
+num_images_per_batch: 1
+num_epochs: 500
+num_warmup_epochs: 3
+sigmoid: false
+resample: true
+resample_resolution: [0.8007810115814209, 0.8007810115814209, 0.8007810115814209]
+crop_mode: ratio
+normalize_mode: range
+intensity_bounds: [-965.921459911062, 481.0808693532194]
+num_epochs_per_validation: null
+num_epochs_per_saving: 4
+num_workers: 4
+num_steps_per_image: null
+num_crops_per_image: 2
+loss: {_target_: DiceCELoss, include_background: true, squared_pred: true, smooth_nr: 0,
+  smooth_dr: 1.0e-05, softmax: $not @sigmoid, sigmoid: $@sigmoid, to_onehot_y: $not
+    @sigmoid}
+optimizer: {_target_: torch.optim.AdamW, lr: '@learning_rate', weight_decay: 1.0e-05}
+network:
+  _target_: SegResNetDS
+  init_filters: 64
+  blocks_down: [2, 4, 4, 8, 8]
+  norm: INSTANCE_NVFUSER
+  in_channels: '@input_channels'
+  out_channels: '@output_classes'
+  dsdepth: 4
+finetune: {enabled: false, ckpt_name: $@bundle_root + '/model/model.pt'}
+validate: {enabled: false, ckpt_name: $@bundle_root + '/model/model.pt', output_path: $@bundle_root
+    + '/prediction_validation', save_mask: false, invert: true}
+infer: {enabled: false, ckpt_name: $@bundle_root + '/model/model.pt', output_path: $@bundle_root
+    + '/prediction_' + @infer#data_list_key, data_list_key: testing}
+anisotropic_scales: false
+spacing_median: [0.8007810115814209, 0.8007810115814209, 2.5]
+spacing_lower: [0.5123225833382423, 0.5125335481467718, 0.5]
+spacing_upper: [1.5, 1.5, 5.0]
+image_size_mm_median: [393.0000042356028, 341.5428650379181, 468.0]
+image_size_mm_90: [472.0, 451.19990234375007, 681.0]
+image_size: [589, 563, 850]
+mgpu: {world_size: 8, rank: 0, global_rank: 0}
